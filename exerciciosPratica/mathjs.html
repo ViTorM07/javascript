@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora - Teorema de Pitágoras</title>
+  <script>
+    function calcular() {
+        let cat1 = parseFloat(document.getElementById("cat1").value);
+        let cat2 = parseFloat(document.getElementById("cat2").value);
+        let hipo = parseFloat(document.getElementById("hipo").value);
+        let resultado = "";
+
+        if (!isNaN(cat1) && !isNaN(cat2) && !isNaN(hipo)) {
+        document.getElementById("resultado").innerHTML =
+          `<p>❌ Erro: Preencha apenas <strong>dois</strong> dos três campos para fazer o cálculo.</p>`;
+        return;
+      }
+      // Verifica quais lados foram informados
+        if (!isNaN(cat1) && !isNaN(cat2)) {
+        // Calcula a hipotenusa
+            let hipotenusa = Math.sqrt(cat1 ** 2 + cat2 ** 2);
+            resultado = `<p>🧮 A hipotenusa é: <strong>${hipotenusa.toFixed(2)}</strong></p>`;
+        } else if (!isNaN(hipo) && !isNaN(cat1)) {
+        // Calcula o cateto 2
+        if (hipo > cat1) {
+          let cateto2 = Math.sqrt(hipo ** 2 - cat1 ** 2);
+          resultado = `<p>🧮 O segundo cateto é: <strong>${cateto2.toFixed(2)}</strong></p>`;
+        } else {
+          resultado = `<p>❌ Erro: a hipotenusa deve ser maior que o cateto.</p>`;
+        }
+        } else if (!isNaN(hipo) && !isNaN(cat2)) {
+        // Calcula o cateto 1
+            if (hipo > cat2) {
+            let cateto1 = Math.sqrt(hipo ** 2 - cat2 ** 2);
+            resultado = `<p>🧮 O primeiro cateto é: <strong>${cateto1.toFixed(2)}</strong></p>`;
+            }else {
+                resultado = `<p>❌ Erro: a hipotenusa deve ser maior que o cateto.</p>`;
+            }
+      } else {
+        resultado = `<p>⚠️ Por favor, preencha dois dos três campos para fazer o cálculo.</p>`;
+      }
+
+      document.getElementById("resultado").innerHTML = resultado;
+    }
+  </script>
+</head>
+<body>
+  <h1>Calculadora -Teorema Pitagórico</h1>
+  <p><strong>Preencha dois dos tres campos</strong></p>  
+
+  <label>CATETO1</label>
+  <input type="number" id ="cat1" placeholder = "ex: 3"><br></br>
+
+  <label>CATETO2</label>
+  <input type="number" id="cat2" placeholder="ex:4"><br></br>
+
+  <label>Hipotenusa:</label>
+  <input type="number" id="hipo" placeholder="ex: 5"><br><br>
+
+  <button onclick="calcular()">Calcule!</button>
+
+  <div id="resultado" style = "margin-top:20px;"></div>
+</body>
+</html>
